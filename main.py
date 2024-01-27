@@ -1,4 +1,7 @@
 import turtle as t
+from datakey import DataKey
+from indexkey import StartIndexKey, EndIndexKey
+from assemblykey import AssemblyKey
 
 t.hideturtle()
 
@@ -9,7 +12,7 @@ t.hideturtle()
 # circle.circle(50.0)
 
 
-def drawLine():
+def drawLine(width:float):
     obj = t.Turtle()
     obj.hideturtle()
     obj.setx(0.0)
@@ -20,7 +23,7 @@ def drawLine():
     obj.right(0)
     obj.backward(270.0)
     obj.pendown()
-    obj.forward(400)
+    obj.forward(width)
     obj.penup()
 
 def drawFirstKey(x:float,y:float):
@@ -98,9 +101,21 @@ def drawIndex(repeat=1, offset=15.0):
         obj.circle(radius=(100.0-(offsetRadius*i)), extent=-150.0)
 
 
-drawLine()
-drawFirstKey(-100.0,0.0)
-drawDataKey(-50.0, 0.0, (2,2,2,2))
-drawIndex(repeat=4)
+drawLine(600)
+t.bgcolor("lightgray")
+# drawFirstKey(-100.0,0.0)
+drawAssemblyKey = AssemblyKey(x=50.0, y=-15.0, data=AssemblyKey.ADD_PATTERN)
+drawAssemblyKey.draw()
+firstDataKey = DataKey(-50.0, 0.0, (1,4,4,2))
+firstDataKey.draw()
+secondDataKey = DataKey(150.0, 0.0, (3,2,2,1))
+secondDataKey.draw()
+startIndex = StartIndexKey(x=0.0, y=0.0, repeat=2, offset=15.0)
+startIndex.draw()
+
+endIndex = EndIndexKey(x=290.0, y=0.0, invert=True)
+endIndex.draw()
+# drawDataKey(-50.0, 0.0, (2,2,2,2))
+# drawIndex(repeat=4)
 
 t.exitonclick()
