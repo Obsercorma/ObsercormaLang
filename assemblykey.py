@@ -17,6 +17,19 @@ class AssemblyKey:
         self.y = y
         self.data = data
 
+    @staticmethod
+    def getInfoPattern(pattern)->str:
+        match pattern:
+            case (0, 1):
+                return "MUL"
+            case (0, 0):
+                return "DIV"
+            case (1, 1):
+                return "ADD"
+            case (1, 0):
+                return "SUB"
+
+
     def _is_MUL_OPE(self)->bool:
         return self.data == self.MUL_PATTERN
 
