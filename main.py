@@ -2,8 +2,11 @@ import turtle as t
 from datakey import DataKey
 from indexkey import StartIndexKey, EndIndexKey
 from assemblykey import AssemblyKey
+from translater import LetterKey, Translater
+from random import randint
 
 t.hideturtle()
+t.setup(width=400, height=1080)
 
 # circle = t.Turtle()
 
@@ -12,19 +15,19 @@ t.hideturtle()
 # circle.circle(50.0)
 
 
-def drawLine(width:float):
+def drawLine(width:float, height:float, x:float, y:float):
     obj = t.Turtle()
     obj.hideturtle()
-    obj.setx(0.0)
-    obj.speed(15)
-    obj.sety(0.0)
-    obj.width(7.0)
-    obj.penup()
+    obj.up()
+    obj.setx(x)
+    obj.sety(y)
+    obj.speed(30)
+    obj.width(height)
     obj.right(0)
     obj.backward(270.0)
-    obj.pendown()
+    obj.down()
     obj.forward(width)
-    obj.penup()
+    obj.up()
 
 def drawFirstKey(x:float,y:float):
     obj = t.Turtle()
@@ -32,8 +35,6 @@ def drawFirstKey(x:float,y:float):
     obj.speed(15)
     obj.setx(x)
     obj.sety(y)
-    # obj.right(0)
-    # obj.backward(50.0)
     obj.right(90)
     obj.width(7.0)
     obj.circle(radius=50.0)
@@ -101,21 +102,40 @@ def drawIndex(repeat=1, offset=15.0):
         obj.circle(radius=(100.0-(offsetRadius*i)), extent=-150.0)
 
 
-drawLine(600)
+
 t.bgcolor("lightgray")
 # drawFirstKey(-100.0,0.0)
-drawAssemblyKey = AssemblyKey(x=50.0, y=-15.0, data=AssemblyKey.ADD_PATTERN)
-drawAssemblyKey.draw()
-firstDataKey = DataKey(-50.0, 0.0, (1,4,4,2))
-firstDataKey.draw()
-secondDataKey = DataKey(150.0, 0.0, (3,2,2,1))
-secondDataKey.draw()
-startIndex = StartIndexKey(x=0.0, y=0.0, repeat=2, offset=15.0)
-startIndex.draw()
 
-endIndex = EndIndexKey(x=290.0, y=0.0, invert=True)
-endIndex.draw()
-# drawDataKey(-50.0, 0.0, (2,2,2,2))
-# drawIndex(repeat=4)
+text = "Puisses tu reunir les connaissances"
 
+dataKeyObject = Translater("Puisse")
+
+initY = -300.0
+pos = 0
+for dataKey in dataKeyObject.translate():
+    repeat = randint(1,4)
+    dataFirstKey = dataKey[0]
+    print(dataFirstKey)
+    dataSecondKey = dataKey[1]
+    for r in range(1, repeat):
+        dataFirstKey = dataFirstKey[::-1]
+        dataSecondKey = dataSecondKey[::-1]
+        print(f"offsetting for '{dataKey[2]._letter}' {r} times")
+
+    drawLine(340.0, 3.0, 95.0, initY+3.0+(110*pos))
+    drawAssemblyKey = AssemblyKey(x=0.0, y=initY+0.0+(110*pos), data=dataKey[2].selectedPattern)
+    drawAssemblyKey.draw()
+    startIndex = StartIndexKey(x=60.0, y=initY+0.0+(110*pos), repeat=repeat, offset=8.0)
+    startIndex.draw()
+    endIndex = EndIndexKey(x=130.0, y=initY+3.0+(110*pos), invert=dataKey[2].useNotPattern)
+    endIndex.draw()
+    firstDataKey = DataKey(-60.0, initY+3.0+(110*pos), dataFirstKey)
+    firstDataKey.draw()
+    secondDataKey = DataKey(60.0, initY+3.0+(110*pos), dataSecondKey)
+    secondDataKey.draw()
+    pos += 1
+
+ts = t.getscreen()
+ts.getcanvas().postscript(file="text.ps")
+print("Done.")
 t.exitonclick()

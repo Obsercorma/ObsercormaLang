@@ -1,6 +1,8 @@
 from assemblykey import AssemblyKey
 from random import randint
 from sympy import solve, Eq, symbols
+from rich import print as richPrint
+from datakey import DataKey
 class LetterKey:
     def __init__(self, letter:str, previousKey=None):
         self._letter = letter
@@ -86,14 +88,49 @@ class Translater:
     def __init__(self, text:str):
         self.text = text.lower().replace(" ", "")
     
-    def translate(self)->list[LetterKey]:
+    def translate(self):
         translatedInObject = []
+        resultsKeys = []
         for l in range(0, len(self.text)):
-            translatedInObject.append(LetterKey(self.text[l], translatedInObject[l-1] if l > 0 else None))
-        return translatedInObject
+            elemKey = LetterKey(self.text[l], translatedInObject[l-1] if l > 0 else None)
+            translatedInObject.append(elemKey)
+            result = elemKey.calcFromPattern()
+            pos = 0
+            grpKeysAlpha = [[0,0]]*4
+            for ra in range(0, 4):
+                if result[0] & (2**(2*ra)) > 0:
+                    grpKeysAlpha[ra][0] = 1
+                if result[0] & (2**(2*ra+1)) > 0:
+                    grpKeysAlpha[ra][1] = 1
+                match grpKeysAlpha[ra]:
+                    case DataKey.DATA_KEY_II:
+                        grpKeysAlpha[ra] = 1
+                    case DataKey.DATA_KEY_OO:
+                        grpKeysAlpha[ra] = 2
+                    case DataKey.DATA_KEY_IO:
+                        grpKeysAlpha[ra] = 3
+                    case DataKey.DATA_KEY_OI:
+                        grpKeysAlpha[ra] = 4
+            grpKeysBeta = [[0,0]]*4
+            for rb in range(0, 4):
+                if result[1] & (2**(2*rb)) > 0:
+                    grpKeysBeta[rb][0] = 1
+                if result[1] & (2**(2*rb+1)) > 0:
+                    grpKeysBeta[rb][1] = 1
+                match grpKeysBeta[rb]:
+                    case DataKey.DATA_KEY_II:
+                        grpKeysBeta[rb] = 1
+                    case DataKey.DATA_KEY_OO:
+                        grpKeysBeta[rb] = 2
+                    case DataKey.DATA_KEY_IO:
+                        grpKeysBeta[rb] = 3
+                    case DataKey.DATA_KEY_OI:
+                        grpKeysBeta[rb] = 4
+            richPrint(f"Result: a:{result[0]} b:{result[1]} codeLetter:{elemKey._codeLetter}\n[0] ->\t{grpKeysAlpha} \n[1] ->\t{grpKeysBeta}  \n\t[red]Pattern: {AssemblyKey.getInfoPattern(elemKey.getPattern())}[/red]")
+            yield (grpKeysAlpha, grpKeysBeta, elemKey)
+        
 
 if __name__ == "__main__":
     translater = Translater("hello wworld")
-    for letter in translater.translate():
-        print(letter.calcFromPattern())
-        print(letter)
+    for combinedKeys in translater.translate():
+        print(combinedKeys)

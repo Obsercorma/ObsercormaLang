@@ -9,22 +9,22 @@ class StartIndexKey:
         self.offset = offset
     
     def draw(self):
-        offsetRadius = 10.0
+        offsetRadius = 5.0
         for i in range(self.repeat):
             obj = t.Turtle()
             obj.hideturtle()
-            obj.speed(15)
-            obj.setx(self.x)
-            obj.sety(self.y)
-            obj.width(7.0)
             obj.penup()
+            obj.speed(30)
+            obj.setx(self.x)
+            obj.sety(self.y+50.0)
+            obj.width(3.0)
             obj.right(0.0)
             obj.backward((200.0-(self.offset*i)))
             obj.left(90.0)
             obj.backward((97.0-(offsetRadius*i)))
             obj.right(105.0)
             obj.pendown()
-            obj.circle(radius=(100.0-(offsetRadius*i)), extent=-150.0)
+            obj.circle(radius=(50.0-(offsetRadius*i)), extent=-150.0)
 
 class EndIndexKey:
     def __init__(self, x:float, y:float, invert:bool=False):
@@ -35,20 +35,20 @@ class EndIndexKey:
     def draw(self):
         obj = t.Turtle()
         obj.hideturtle()
-        obj.speed(15)
+        obj.penup()
+        obj.speed(30)
         obj.setx(self.x)
         obj.sety(self.y)
-        obj.width(7.0)
-        obj.penup()
+        obj.width(3.0)
         obj.right(90.0)
         obj.pendown()
-        obj.forward(60.0)
-        obj.circle(radius=30.0, extent=230.0)
+        obj.forward(30.0)
+        obj.circle(radius=15.0, extent=230.0)
         obj.penup()
         obj.right(90.0)
-        obj.forward(20.0)
+        obj.forward(10.0) # draw NOT gate
         obj.pendown()
-        obj.backward(40.0)
+        obj.backward(20.0)
         obj.penup()
         
         if self.invert:
@@ -56,7 +56,7 @@ class EndIndexKey:
             obj.left(90.0)
             obj.forward(20.0)
             obj.begin_fill()
-            obj.circle(radius=10.0)
+            obj.circle(radius=4.0)
             obj.end_fill()
             obj.right(90.0)
 
@@ -64,9 +64,9 @@ class EndIndexKey:
         obj.sety(self.y)
         obj.pendown()
         obj.left(40.0)
-        obj.forward(60.0)
+        obj.forward(30.0)
         obj.left(0.0)
-        obj.circle(radius=20.0, extent=230.0)
+        obj.circle(radius=10.0, extent=230.0)
         obj.penup()
 
 
