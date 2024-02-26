@@ -108,7 +108,7 @@ t.bgcolor("lightgray")
 
 text = "Puisses tu reunir les connaissances"
 
-dataKeyObject = Translater("Puisse")
+dataKeyObject = Translater("obsercorma")
 
 initY = -300.0
 pos = 0
