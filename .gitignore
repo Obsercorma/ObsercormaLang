@@ -3,3 +3,5 @@ __pycache__/
 *.ps
 *.png
 *.jpeg
+imgs/
+.DS_Store

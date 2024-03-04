@@ -1,4 +1,5 @@
 import turtle as t
+from rich import print as richPrint
 from datakey import DataKey
 from indexkey import StartIndexKey, EndIndexKey
 from assemblykey import AssemblyKey
@@ -101,14 +102,12 @@ def drawIndex(repeat=1, offset=15.0):
         obj.pendown()
         obj.circle(radius=(100.0-(offsetRadius*i)), extent=-150.0)
 
-
-
 t.bgcolor("lightgray")
-# drawFirstKey(-100.0,0.0)
 
-text = "Puisses tu reunir les connaissances"
+#exemple de texte: Les trois frères ne font qu'un
+text = "Lestro isfrer esnefo ntquun".split(" ") # groupement de 6 lettres
 
-dataKeyObject = Translater("obsercorma")
+dataKeyObject = Translater(text[3])
 
 initY = -300.0
 pos = 0
@@ -137,5 +136,5 @@ for dataKey in dataKeyObject.translate():
 
 ts = t.getscreen()
 ts.getcanvas().postscript(file="text.ps")
-print("Done.")
+richPrint("[green]\[DONE!][/green]")
 t.exitonclick()
