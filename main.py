@@ -104,10 +104,10 @@ def drawIndex(repeat=1, offset=15.0):
 
 t.bgcolor("lightgray")
 
-#exemple de texte: Les trois frères ne font qu'un
-text = "Lestro isfrer esnefo ntquun".split(" ") # groupement de 6 lettres
+#exemple de texte: Puisses tu réunir les connaissances.
+text = "Puisse stureu nirles connai ssance s".split(" ") # groupement de 6 lettres
 
-dataKeyObject = Translater(text[3])
+dataKeyObject = Translater(text[5])
 
 initY = -300.0
 pos = 0
