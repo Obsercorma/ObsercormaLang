@@ -1,5 +1,5 @@
 # ObsercormaLang
 
 ### But du projet :
-Ce petit projet personnel m'a permis d'appliquer des inscriptions sur mes œuvres artistiques.
-Ce programme assure à ce qu'il n'ait aucune répétition de deux carractères consécutifs afin de réduire les chances d'être compris.
+Grâce à ce petit projet personnel, j'ai pu ajouter des inscriptions à mes œuvres artistiques.
+Ce programme garantit que deux caractères consécutifs ne se répètent pas, afin de minimiser les chances d'être compris.
