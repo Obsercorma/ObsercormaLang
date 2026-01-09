@@ -1,5 +1,5 @@
 #!/bin/bash
 read -p "Enter the name of the image: " file
 
-convert text.ps imgs/$file.jpeg
+magick text.ps imgs/$file.jpeg
 echo "File $file has been created"

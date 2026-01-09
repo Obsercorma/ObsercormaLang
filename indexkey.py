@@ -1,42 +1,44 @@
 import turtle as t
 
+
 class StartIndexKey:
-    def __init__(self, x:float, y:float, repeat:int=1, offset:float=15.0):
-        assert (repeat > 0 and repeat < 5), "Repeat must be between 1 and 4"
+    def __init__(self, x: float, y: float, repeat: int = 1, offset: float = 15.0):
+        assert repeat > 0 and repeat < 5, "Repeat must be between 1 and 4"
         self.x = x
         self.y = y
         self.repeat = repeat
         self.offset = offset
-    
+
     def draw(self):
         offsetRadius = 5.0
         for i in range(self.repeat):
             obj = t.Turtle()
             obj.hideturtle()
             obj.penup()
-            obj.speed(30)
+            obj.speed(0)
             obj.setx(self.x)
-            obj.sety(self.y+50.0)
+            obj.sety(self.y + 50.0)
             obj.width(3.0)
             obj.right(0.0)
-            obj.backward((200.0-(self.offset*i)))
+            obj.backward((200.0 - (self.offset * i)))
             obj.left(90.0)
-            obj.backward((97.0-(offsetRadius*i)))
+            obj.backward((97.0 - (offsetRadius * i)))
             obj.right(105.0)
             obj.pendown()
-            obj.circle(radius=(50.0-(offsetRadius*i)), extent=-150.0)
+            obj.circle(radius=(50.0 - (offsetRadius * i)), extent=-150.0)
+
 
 class EndIndexKey:
-    def __init__(self, x:float, y:float, invert:bool=False):
+    def __init__(self, x: float, y: float, invert: bool = False):
         self.x = x
         self.y = y
         self.invert = invert
-    
+
     def draw(self):
         obj = t.Turtle()
         obj.hideturtle()
         obj.penup()
-        obj.speed(30)
+        obj.speed(0)
         obj.setx(self.x)
         obj.sety(self.y)
         obj.width(3.0)
@@ -46,11 +48,11 @@ class EndIndexKey:
         obj.circle(radius=15.0, extent=230.0)
         obj.penup()
         obj.right(90.0)
-        obj.forward(10.0) # draw NOT gate
+        obj.forward(10.0)  # draw NOT gate
         obj.pendown()
         obj.backward(20.0)
         obj.penup()
-        
+
         if self.invert:
             obj.forward(30.0)
             obj.left(90.0)
